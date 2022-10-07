@@ -1,5 +1,11 @@
+import MessageList from "./components/MessageList";
+
 function App() {
-  return <div className="App">Hello App</div>;
+  return (
+    <div className="App">
+      <MessageList />
+    </div>
+  );
 }
 
 export default App;
