@@ -18,8 +18,7 @@ const MessageList = () => {
       });
   }, []);
   return (
-    <div>
-      <div>Message List</div>
+    <div className="center-content">
       <div className="message-list">
         {loadMessages.map((msg) => {
           return (

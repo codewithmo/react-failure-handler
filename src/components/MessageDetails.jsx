@@ -7,63 +7,65 @@ import useCollapse from "react-collapsed";
 
 const MessageDetails = () => {
   let { id } = useParams();
-  let [messageId, setMessageId] = useState("");
   let [messageDetails, setMessageDetails] = useState({});
   const [isExpanded, setExpanded] = useState(false);
   const { getCollapseProps, getToggleProps } = useCollapse({ isExpanded });
+
+  function updateStatus() {
+    axios
+      .put(`/failure-messages/${id}`)
+      .then(function (response) {
+        setMessageDetails(() => response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
   useEffect(() => {
     axios
-      .get(`/failure-messages/${id}`, {
-        params: {
-          id,
-        },
-      })
+      .get(`/failure-messages/${id}`)
       .then(function (response) {
-        console.log(response.data);
-        setMessageId(id);
         setMessageDetails(() => response.data);
       })
       .catch(function (error) {
         console.log(error);
       });
   }, [id]);
-  return (
-    <div>
-      <div>Message details of id: {messageId}</div>
 
-      <Box flexDirection="column" width="100%">
-        <Box className="item-box">
-          <Box flexDirection="row" justifyContent="space-between">
-            <Box className="box-btn center-content">
-              {messageDetails.createdAt?.split("T")[0]}
-            </Box>
-            <Box className="box-btn center-content">{messageDetails.label}</Box>
-            <Box className="box-btn center-content">{messageDetails.id}</Box>
-            <Box className="box-btn center-content">
-              {messageDetails.status}
-            </Box>
+  return (
+    <Box flexDirection="column" width="100%" className="center-content">
+      <Box className="item-box">
+        <Box flexDirection="row" justifyContent="space-between">
+          <Box className="box-btn center-content">
+            {messageDetails.createdAt?.split("T")[0]}
           </Box>
-          <Box>
-            <Box className="center-content icon-down-box">
-              <BiChevronDown
-                {...getToggleProps({
-                  onClick: () => setExpanded((prevExpanded) => !prevExpanded),
-                })}
-              >
-                {isExpanded ? "Collapse" : "Expand"}
-              </BiChevronDown>
-            </Box>
-          </Box>
+          <Box className="box-btn center-content">{messageDetails.label}</Box>
+          <Box className="box-btn center-content">{messageDetails.id}</Box>
+          <Box className="box-btn center-content">{messageDetails.status}</Box>
         </Box>
         <Box>
-          <section {...getCollapseProps()}>
-            <Box className="exp-coll-box center-content">
-              <pre>{JSON.stringify(messageDetails, null, 2)}</pre>
-            </Box>
-          </section>
+          <Box className="center-content icon-down-box">
+            <BiChevronDown
+              {...getToggleProps({
+                onClick: () => {
+                  setExpanded((prevExpanded) => !prevExpanded);
+                  if (messageDetails.status === "UNRESOLVED") updateStatus();
+                },
+              })}
+            >
+              {isExpanded ? "Collapse" : "Expand"}
+            </BiChevronDown>
+          </Box>
         </Box>
       </Box>
-    </div>
+      <Box>
+        <section {...getCollapseProps()}>
+          <Box className="exp-coll-box center-content">
+            <pre>{JSON.stringify(messageDetails, null, 2)}</pre>
+          </Box>
+        </section>
+      </Box>
+    </Box>
   );
 };
 
