@@ -39,3 +39,34 @@
     justify-content: center;
     align-items: center;
 }
+
+.item-box{
+    display: flex;
+    justify-content: space-between;
+    border: 0.25px solid black;
+    border-radius: 8px;
+    width: 700px
+}
+.icon-down-box{
+    margin: 0px 10px 0px 10px;
+    padding: 10px;
+}
+.box-btn{
+    border: 0.25px solid black;
+    border-radius: 8px;
+    margin: 8px;
+    width:120px;
+    height:20px;
+    top:110.5px;
+    left:24px;
+    padding:8px 4px 8px 4px;
+    gap:4px
+}
+
+.exp-coll-box{
+    margin-top: 10px;
+    border: 0.25px solid black;
+    border-radius: 8px;
+    height: 170px;
+    width: 700px
+}
