@@ -1,0 +1,41 @@
+
+.message-list{
+    width: fit-content;
+}
+
+.flex-box{
+    display: flex;
+}
+
+.message-list-item{
+    border: 0.5px solid black;
+    width: 100%;
+    margin: 4.5px
+}
+
+.status-btn{
+    border: 0.25px solid black;
+    width:120px;
+    height:32px;
+    top:110.5px;
+    left:24px;
+    padding:8px 4px 8px 4px;
+    gap:4px
+}
+
+.msg-id{
+    border: 0.25px solid black;
+    width:312px;
+    height:31px;
+    padding:8px 24px 8px 24px;
+}
+
+.arrow-icon {
+    border: 0.25px solid black;
+}
+
+.center-content{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import MessageListItem from "./MessageListItem";
+import { Link } from "react-router-dom";
 
 const MessageList = () => {
   const [loadMessages, setLoadMessages] = useState([]);
@@ -18,11 +20,19 @@ const MessageList = () => {
   return (
     <div>
       <div>Message List</div>
-      <ul>
+      <div className="message-list">
         {loadMessages.map((msg) => {
-          return <li key={msg.id}>{`${msg.id}--${msg.label}`}</li>;
+          return (
+            <Link to={`/messages/${msg.id}`}>
+              <MessageListItem
+                key={msg.id}
+                status={msg.status}
+                id={msg.id}
+              ></MessageListItem>
+            </Link>
+          );
         })}
-      </ul>
+      </div>
     </div>
   );
 };
